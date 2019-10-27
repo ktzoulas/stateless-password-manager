@@ -9,7 +9,7 @@ from flask_testing import TestCase
 
 from project import create_app
 
-APP_NAME = os.getenv('APP_NAME', 'stateless-password-manager')
+APP_NAME = os.getenv('APP_NAME', 'SPaMan')
 SECRET_KEY = os.getenv('SECRET_KEY', '77c84dc23ad11ebd1e78e80acf73ce8a')
 
 
