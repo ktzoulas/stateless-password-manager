@@ -11,7 +11,7 @@ BASEDIR = os.path.abspath(os.path.dirname(__file__))
 class BaseConfig:
     """Base Configuration"""
 
-    APP_NAME = os.getenv('APP_NAME', 'stateless-password-manager')
+    APP_NAME = os.getenv('APP_NAME', 'SPaMan')
     DEBUG = False
     DEBUG_TB_ENABLED = False
     LOGGING_FILE = 'spaman.log'

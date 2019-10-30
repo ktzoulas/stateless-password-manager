@@ -3,6 +3,7 @@
 """
 # pylint: disable=invalid-name
 # pylint: disable=no-member
+
 from datetime import datetime
 from flask import Blueprint, abort, flash, redirect, render_template, request, url_for
 
@@ -11,13 +12,6 @@ from project.matrix.forms import EditForm
 from project.matrix.models import Matrix
 
 matrix_blueprint = Blueprint('matrix', __name__, url_prefix='/matrix')
-
-
-@matrix_blueprint.route('/')
-def index():
-    """List all existing matrices sorted by date of last modification in descending order."""
-    return render_template(
-        'matrix/index.html', items=Matrix.query.order_by(Matrix.modified_at.desc()).all())
 
 
 @matrix_blueprint.route('/add', methods=['GET', 'POST'])
@@ -35,7 +29,9 @@ def add():
         flash('New matrix was created.', 'success')
         return redirect(url_for('matrix.index'))
 
-    return render_template('matrix/edit.html', form=form)
+    return render_template(
+        'matrix/edit.html',
+        breadcrumb=(('Home', 'main.index'), ('Matrices', 'matrix.index'), 'New Matrix'), form=form)
 
 
 @matrix_blueprint.route('/delete/<int:mid>', methods=['POST'])
@@ -68,7 +64,17 @@ def edit(mid):
         flash('Matrix was updated successfully.', 'success')
         return redirect(url_for('matrix.index'))
 
-    return render_template('matrix/edit.html', form=form, id=model.id, view=False)
+    return render_template(
+        'matrix/edit.html',
+        breadcrumb=(('Home', 'main.index'), ('Matrices', 'matrix.index'), model.name),
+        form=form, id=model.id, view=False)
+
+
+@matrix_blueprint.route('/')
+def index():
+    """List all existing matrices sorted by date of last modification in descending order."""
+    return render_template('matrix/index.html', breadcrumb=(('Home', 'main.index'), 'Matrices'),
+                           items=Matrix.query.order_by(Matrix.modified_at.desc()).all())
 
 
 @matrix_blueprint.route('/view/<int:mid>')
@@ -78,4 +84,7 @@ def view(mid):
     model or abort(500, "No Matrix object with '{0}' id.".format(mid))
 
     form = EditForm(obj=model)
-    return render_template('matrix/edit.html', form=form, view=True)
+    return render_template(
+        'matrix/edit.html',
+        breadcrumb=(('Home', 'main.index'), ('Matrices', 'matrix.index'), model.name),
+        form=form, view=True)
