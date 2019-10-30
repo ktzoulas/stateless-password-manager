@@ -30,4 +30,4 @@ class MainBlueprintTest(BaseTestCase):
         response = self.client.get('/')
 
         self.assertEqual(200, response.status_code)
-        self.assertIn('Hello Friend.', str(response.data))
+        self.assertIn('<h1>Stateless Password Manager</h1>\\n    <hr />', str(response.data))
