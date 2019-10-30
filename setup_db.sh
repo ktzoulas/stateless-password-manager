@@ -6,8 +6,8 @@ docker run --rm --name pg-docker \
   -p 5432:5432 -d postgres
   # -v ~/docker/volumes/postgresql/data:/var/lib/postgresql/data
 
-# .....................................create database
-psql -h localhost -U postgres -c 'CREATE DATABASE spamandb;'
+echo "[*] Wait for container to be initialized..." && sleep 3
 
-# .....................................connect to spamandb
-# psql -h localhost -U postgres -d spamandb
+# .....................................create database
+PGPASSWORD="postgres" psql -h localhost -U postgres -c "CREATE DATABASE spamandb;"
+PGPASSWORD="postgres" psql -h localhost -U postgres -c "CREATE DATABASE spamandb_test;"
