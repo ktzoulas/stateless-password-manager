@@ -2,12 +2,10 @@
     Test views of the 'evaluate' blueprint.
 """
 # pylint: disable=no-member
-from unittest import skip
 
 from tests import BaseTestCase
 
 
-@skip('Not Implemented')
 class EvaluateBlueprintTest(BaseTestCase):
     """Test functionality of the 'evaluate' blueprint"""
 
