@@ -1,7 +1,6 @@
 """
-    TODO: add module docstring
+    Contains the views of the 'evaluate' blueprint.
 """
-
 # pylint: disable=invalid-name
 
 from flask import Blueprint, render_template, request
@@ -19,6 +18,8 @@ def index():
         if form.password.data is not None and form.password.data != '':
             power = 'Weak Password'
 
-        return render_template('evaluate/index.html', form=form, power=power)
+        return render_template('evaluate/index.html', form=form, power=power,
+                               breadcrumb=(('Home', 'main.index'), 'Evaluate'))
 
-    return render_template('evaluate/index.html', form=form)
+    return render_template('evaluate/index.html', form=form,
+                           breadcrumb=(('Home', 'main.index'), 'Evaluate'))
