@@ -3,6 +3,7 @@
 """
 # pylint: disable=invalid-name
 # pylint: disable=no-member
+
 from datetime import datetime
 from flask import Blueprint, abort, flash, redirect, render_template, request, url_for
 
