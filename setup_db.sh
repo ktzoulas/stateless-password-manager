@@ -11,3 +11,9 @@ echo "[*] Wait for container to be initialized..." && sleep 3
 # .....................................create database
 PGPASSWORD="postgres" psql -h localhost -U postgres -c "CREATE DATABASE spamandb;"
 PGPASSWORD="postgres" psql -h localhost -U postgres -c "CREATE DATABASE spamandb_test;"
+
+# .....................................initialize database
+source venv/bin/activate
+python manage.py init-db
+python manage.py generate-sample-data
+deactivate
