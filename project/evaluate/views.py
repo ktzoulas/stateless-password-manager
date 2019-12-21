@@ -5,6 +5,7 @@
 
 from flask import Blueprint, render_template, request
 from project.evaluate.forms import EvaluateForm
+from project.evaluate.helpers import evaluate_pass
 
 evaluate_blueprint = Blueprint('evaluate', __name__, url_prefix='/evaluate')
 
@@ -16,7 +17,7 @@ def index():
     form = EvaluateForm(request.form)
     if form.validate_on_submit():
         if form.password.data is not None and form.password.data != '':
-            power = 'Weak Password'
+            power = evaluate_pass(form.password.data)
 
         return render_template('evaluate/index.html', form=form, power=power,
                                breadcrumb=(('Home', 'main.index'), 'Evaluate'))

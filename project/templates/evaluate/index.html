@@ -24,7 +24,10 @@
     <br /><br />
     {% if power %}
             <div class="col-sm-10">
-                {{power}}
+                {% for i in power%}
+                {{i}}
+                <br />
+                {% endfor %}
             </div>
     {% endif%}
 </div>
