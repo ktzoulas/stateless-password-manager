@@ -11,8 +11,8 @@ def evaluate_pass(password):
     capitals = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'A',
                 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Z', 'X', 'C', 'V', 'B', 'N', 'M']
     numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
-    # symbols = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+',
-    # '{', '}', ':', '"', '|', '<', '>', '?', '[', ']', ';', "'", ',', '.', '/']
+    # symbols = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '_', '+', '{', '}',
+    # ':', '"', '|', '<', '>', '?', '[', ']', ';', "'", ',', '.', '/']
     # nsymbols = ['!', '@', '#', '$', '%','^', '&', '*', '(', ')']
 
     letters_quantity = 0
@@ -33,18 +33,17 @@ def evaluate_pass(password):
     quantity = [letters_quantity, capitals_quantity, numbers_quantity, symbols_quantity]
     msgs = ['letter', 'Capital letter', 'number', 'symbol']
 
+    msg = []
     valid = True
-    for i in range(0, 3):
+    for i in range(0, 4):
         if quantity[i] == 0:
             valid = False
-            print('The password must contain at least one '+msgs[i])
+            msg.append(('The password must contain at least one '+msgs[i]))
 
     if valid:
-        print('Good job')
-    else:
-        print('Please try again')
+        msg = 'Good job'
 
-    return valid
+    return msg
 
 
-print(evaluate_pass('as1d1#Rf'))
+print(evaluate_pass(''))
