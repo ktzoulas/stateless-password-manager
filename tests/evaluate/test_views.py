@@ -1,20 +1,18 @@
 """
-    TODO: add module docstring
+    Test views of the 'evaluate' blueprint.
 """
-from flask_testing import TestCase
+# pylint: disable=no-member
 
-from project import create_app
+from tests import BaseTestCase
 
 
-class EvaluateBlueprintTest(TestCase):
-    """TODO: add class docstring"""
-
-    def create_app(self):
-        return create_app(settings='project.config.TestingConfig')
+class EvaluateBlueprintTest(BaseTestCase):
+    """Test functionality of the 'evaluate' blueprint"""
 
     def test_index_page(self):
-        """TODO: add method docstring"""
-        response = self.client.get('/evaluate')
+        """test evaluating a random password"""
+        form = {'password': self.fake.password()}
+        response = self.client.post('/evaluate/', data=form)
 
         self.assertEqual(200, response.status_code)
-        self.assertIn('Password', str(response.data))
+        self.assertIn('Weak Password', str(response.data))

@@ -1,0 +1,13 @@
+{% extends "_layout.html" %}
+{% block title %} - Internal Server Error{% endblock %}
+{% block content %}
+<div class="jumbotron">
+    <div class="text-center">
+        <h1>500</h1>
+        <h3>Internal Server Error</h3>
+        <p>The server encountered an internal error or misconfiguration and was unable to complete your request.</p>
+        <p>Please, contact the server administrator and inform them of the time the error occurred and anything you might have done that may caused the error.</p>
+        <a class="btn btn-success" href="{{ url_for('main.index') }}">Home Page</a>
+    </div>
+</div>
+{% endblock %}

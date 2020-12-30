@@ -1,1 +1,42 @@
-<!-- navigation -->
+{% if breadcrumb %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">{{ config.APP_NAME }}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item{% if breadcrumb[-1] == 'Home' %} active{% endif %}">
+                <a class="nav-link" href="{{ url_for('main.index') }}">Home{% if breadcrumb[-1] == 'Home' %}<span class="sr-only"> (current)</span>{% endif %}</a>
+            </li>
+            <li class="nav-item{% if breadcrumb[-1] == 'Evaluate' %} active{% endif %}">
+                <a class="nav-link" href="{{ url_for('evaluate.index') }}">Evaluate{% if breadcrumb[-1] == 'Evaluate' %}<span class="sr-only"> (current)</span>{% endif %}</a>
+            </li>
+            <li class="nav-item{% if breadcrumb[-1] == 'Matrices' %} active{% endif %}">
+                <a class="nav-link" href="{{ url_for('matrix.index') }}">Matrices{% if breadcrumb[-1] == 'Matrices' %} <span class="sr-only"> (current)</span>{% endif %}</a>
+            </li>
+        </ul>
+
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
+            <button class="btn btn-outline-success my-2 my-sm-9" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+
+<div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+            {% for title, route in breadcrumb[:-1] %}
+                <li class="breadcrumb-item"><a href="{{ url_for(route) }}">{{ title }}</a></li>
+            {% endfor %}
+                <li class="breadcrumb-item active" aria-current="page">{{ breadcrumb[-1] }}</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="col-sm-2"></div>
+</div>
+{% endif %}

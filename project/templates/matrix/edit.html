@@ -1,6 +1,5 @@
 {% extends "_layout.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
-
 {% block title %} Edit {% endblock %}
 {% block content %}
 <div>
@@ -12,26 +11,23 @@
         {{ wtf.form_errors(form) }}
 
         <div class="form-group row">
-            <label for="name-{{ model.id if model else 0 }}" class="col-sm-2 col-form-label">{{ form.name.label }}</label>
+            {{ form.name.label(class_='col-sm-2 col-form-label') }}
+            <div class="col-sm-10">{{ form.name(class_='form-control', disabled=view) }}</div>
+        </div>
+
+        <div class="form-group row">
+            {{ form.algorithm_id.label(class_='col-sm-2 col-form-label') }}
             <div class="col-sm-10">
-                <input type="text" id="name-{{ model.id if model else 0 }}" name="name" class="form-control"
-                       value="{{ model.name if model }}" placeholder="{{ form.name.description }}" />
+                {{ form.algorithm_id(class_='form-control', disabled=view) }}
+                <small class="form-text text-muted">{{ form.algorithm_id.description }}</small>
             </div>
         </div>
 
         <div class="form-group row">
-            <label for="algorithm-{{ model.id if model else 0 }}" class="col-sm-2 col-form-label">{{ form.algorithm.label }}</label>
+            {{ form.salt.label(class_='col-sm-2 col-form-label') }}
             <div class="col-sm-10">
-                <input type="text" id="algorithm-{{ model.id if model else 0 }}" name="algorithm" class="form-control"
-                       value="{{ model.algorithm.name if model }}" placeholder="{{ form.algorithm.description }}"/>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="salt-{{ model.id if model else 0 }}" class="col-sm-2 col-form-label">{{ form.salt.label }}</label>
-            <div class="col-sm-10">
-                <input type="text" id="salt-{{ model.id if model else 0 }}" name="salt" class="form-control"
-                       value="{{ model.salt if model }}" placeholder="{{ form.salt.description }}"/>
+                {{ form.salt(class_='form-control', disabled=view) }}
+                <small class="form-text text-muted">{{ form.salt.description }}</small>
             </div>
         </div>
 
@@ -39,31 +35,25 @@
 
         <div class="form-row">
             <div class="form-check col-sm-6">
-                <div class="col-sm-2">
-                    <input type="checkbox" id="uppercase" class="form-check-input" />
-                </div>
-                <label for="uppercase" class="col-sm-10">Contains uppercase letters</label>
+                <div class="col-sm-2">{{ form.uppercase(class_='form-check-input', disabled=view) }}</div>
+                {{ form.uppercase.label(class_='col-sm-10') }}
             </div>
+
             <div class="form-check col-sm-6">
-                <div class="col-sm-2">
-                    <input type="checkbox" id="digits" class="form-check-input" />
-                </div>
-                <label for="digits" class="col-sm-10">Contains digits</label>
+                <div class="col-sm-2">{{ form.digits(class_='form-check-input', disabled=view) }}</div>
+                {{ form.digits.label(class_='col-sm-10') }}
             </div>
         </div>
 
         <div class="form-row">
             <div class="form-check col-sm-6">
-                <div class="col-sm-2">
-                    <input type="checkbox" id="lowercase" class="form-check-input" />
-                </div>
-                <label for="lowercase" class="col-sm-10">Contains lowercase letters</label>
+                <div class="col-sm-2">{{ form.lowercase(class_='form-check-input', disabled=view) }}</div>
+                {{ form.lowercase.label(class_='col-sm-10') }}
             </div>
+
             <div class="form-check col-sm-6">
-                <div class="col-sm-2">
-                    <input type="checkbox" id="symbols" class="form-check-input" />
-                </div>
-                <label for="symbols" class="col-sm-10">Contains symbols</label>
+                <div class="col-sm-2">{{ form.symbols(class_='form-check-input', disabled=view) }}</div>
+                {{ form.symbols.label(class_='col-sm-10') }}
             </div>
         </div>
 
@@ -71,22 +61,32 @@
 
         <div class="form-row">
             <div class="form-group row col-sm-6">
-                <label for="iterations-{{ model.id if model else 0 }}" class="col-sm-2 col-form-label">{{ form.iterations.label }}</label>
+                {{ form.iterations.label(class_='col-sm-2 col-form-label') }}
                 <div class="col-sm-10">
-                    <input type="text" id="iterations-{{ model.id if model else 0 }}" name="iterations" class="form-control"
-                           value="{{ model.iterations if model }}" placeholder="{{ form.iterations.description }}" />
+                    {{ form.iterations(class_='col-sm-10 form-control', disabled=view) }}
+                    <small class="form-text text-muted">{{ form.iterations.description }}</small>
                 </div>
             </div>
+
             <div class="form-group row col-sm-6">
-                <label for="length-{{ model.id if model else 0 }}" class="col-sm-2 col-form-label">{{ form.length.label }}</label>
-                <div class="col-sm-10">
-                    <input type="text" id="length-{{ model.id if model else 0 }}" name="length" class="form-control"
-                           value="{{ model.length if model }}" placeholder="{{ form.length.description }}" />
-                </div>
+                {{ form.length.label(class_='col-sm-2 col-form-label') }}
+                <div class="col-sm-10">{{ form.length(class_='col-sm-10 form-control', disabled=view) }}</div>
             </div>
         </div>
 
+        {% if not view %}
         <button class="btn btn-success" type="submit">Save</button>
+        {% endif %}
     </form>
+
+    <br />
+
+    {% if id and not view %}
+    <form class="form" role="form" method="post" action="/matrix/delete/{{ id }}">
+        {{ form.csrf_token }}
+        {{ wtf.form_errors(form) }}
+        <button class="btn btn-danger">Delete Me!</button>
+    </form>
+    {% endif %}
 </div>
 {% endblock %}
